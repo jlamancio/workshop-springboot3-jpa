@@ -3,6 +3,8 @@ package br.devsuperior.course.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.devsuperior.course.entities.pk.OrderItemPk;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -15,7 +17,7 @@ import jakarta.persistence.Table;
 public class OrderItem implements Serializable{
 	
 	@EmbeddedId
-	private OrderItemPk id;   // identificador chave primária
+	private OrderItemPk id = new OrderItemPk();   // identificador chave primária
 	
 	private Integer quantity;
 	private Double price;
@@ -32,6 +34,7 @@ public class OrderItem implements Serializable{
 		this.price = price;
 	}
 	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
