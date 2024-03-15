@@ -1,6 +1,7 @@
 package br.devsuperior.course.services;
 
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.devsuperior.course.entities.User;
 import br.devsuperior.course.repositories.UserRepository;
+import br.devsuperior.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,7 +23,7 @@ public class UserService {
 
 	public User findBYId(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public User insert(User obj) {
